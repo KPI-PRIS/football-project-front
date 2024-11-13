@@ -1,26 +1,26 @@
-import {Button, Dropdown, DropdownItem, DropdownMenu, DropdownTrigger} from "@nextui-org/react";
+import {createBrowserRouter, Outlet, RouterProvider} from "react-router-dom";
+import UsersPage from "./pages/user/UsersPage.tsx";
+import MainPage from "./pages/MainPage.tsx";
 
-// Для перевірки стилю
+const router = createBrowserRouter([
+    {
+        path: '/',
+        element: <><Outlet/></>,
+        children: [
+            {
+                index: true,
+                element: <MainPage/>
+            },
+            {
+                path: 'users',
+                element: <UsersPage/>
+            }
+        ]
+    },
+])
+
 function App() {
-    return (
-        <Dropdown>
-            <DropdownTrigger>
-                <Button
-                    variant="bordered"
-                >
-                    Open Menu
-                </Button>
-            </DropdownTrigger>
-            <DropdownMenu aria-label="Static Actions">
-                <DropdownItem key="new">New file</DropdownItem>
-                <DropdownItem key="copy">Copy link</DropdownItem>
-                <DropdownItem key="edit">Edit file</DropdownItem>
-                <DropdownItem key="delete" className="text-danger" color="danger">
-                    Delete file
-                </DropdownItem>
-            </DropdownMenu>
-        </Dropdown>
-    );
+    return <RouterProvider router={router}/>;
 }
 
 export default App
